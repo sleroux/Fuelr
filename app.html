@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>
+        </title>
+        <link rel="stylesheet" href="./lib/jquery.mobile-1.0.1.min.css" />
+		<link rel="stylesheet" href="./lib/jquery.mobile.simpledialog.min.css" />
+		<script src="./lib/jquery.min.js"></script>
+
+        <script src="./lib/jquery.mobile-1.0.1.min.js"></script>
+		<script src="./lib/jquery.mobile.simpledialog2.min.js"></script>
+    </head>
+    <body>
+        <div data-role="page" id="page1">
+            <div data-theme="a" data-role="header">
+                <h3>
+                    Fuelr
+                </h3>
+            </div>
+			
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#" class="ui-btn-active">Calculate</a></li>
+					<li><a href="#">Saved Entries</a></li>
+				</ul>
+			</div>
+            <div data-role="content">
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label  for="fob">
+                            Fuel on Board
+                        </label>
+                        <input  id="fob" placeholder="" value="" type="number" />
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label  for="target">
+                            Target
+                        </label>
+                        <input  id="target" placeholder="" value="" type="number" />
+                    </fieldset>
+                </div>
+				<div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label  for="fueluplift">
+                            Fuel Uplift
+                        </label>
+                        <input  id="fueluplift" placeholder="" value="" type="number" />
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label  for="density">
+                            Density
+                        </label>
+                        <input  id="density" placeholder="" value="" type="number" />
+                    </fieldset>
+                </div>
+                <input id='calculate' type="submit" data-icon="gear" data-iconpos="left" value="Calculate" />
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label  for="fuelactual">
+                            Fuel Actual
+                        </label>
+                        <input  id="fuelactual" readonly="readonly" placeholder="" value="" type="text" />
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label  for="discrepency">
+                            Discrepency
+                        </label>
+                        <input  id="discrepency" placeholder="" readonly="readonly" value="" type="text" />
+                    </fieldset>
+                </div>
+			<a id="save" href="#" data-role="button" data-icon="plus">Save</a>
+        </div>
+        <script>
+            //App custom javascript
+			$('#calculate').tap(function() {
+				console.log('caculated!');
+				
+				//Clear previous values
+				$('#fuelactual').val('');
+				$('#discrepency').val('');
+				
+				var fob = parseFloat($('#fob').val());
+				var target = parseFloat($('#target').val());
+				var fueluplift = parseFloat($('#fueluplift').val());
+				var density = parseFloat($('#density').val());
+				
+				var actualuplift = fueluplift * density;
+				var fuelactual = actualuplift + fob;
+				var discrepency = target - fuelactual;
+				
+				if (!isNaN(fuelactual) && !isNaN(discrepency)) {
+					$('#fuelactual').val(fuelactual);
+					$('#discrepency').val(discrepency);
+				}
+			});
+			
+			$(document).delegate('#save', 'click', function() {
+				  // NOTE: The selector can be whatever you like, so long as it is an HTML element.
+				  //       If you prefer, it can be a member of the current page, or an anonymous div
+				  //       like shown.
+				  $('<div>').simpledialog2({
+					mode: 'button',
+					headerText: 'Save Entry',
+					headerClose: true,
+					buttonPrompt: 'Enter a title for this calculation',
+					buttonInput: true,
+					buttons : {
+						'Save': {
+							click: function () { 
+								$('#buttonoutput').text('OK');
+							}
+						}
+					}
+				  })
+				})
+			
+        </script>
+    </body>
+</html>
