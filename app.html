@@ -1,127 +1,220 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>
-        </title>
-        <link rel="stylesheet" href="./lib/jquery.mobile-1.0.1.min.css" />
-		<link rel="stylesheet" href="./lib/jquery.mobile.simpledialog.min.css" />
-		<script src="./lib/jquery.min.js"></script>
-
-        <script src="./lib/jquery.mobile-1.0.1.min.js"></script>
-		<script src="./lib/jquery.mobile.simpledialog2.min.js"></script>
-    </head>
-    <body>
-        <div data-role="page" id="page1">
-            <div data-theme="a" data-role="header">
-                <h3>
-                    Fuelr
-                </h3>
-            </div>
-			
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#" class="ui-btn-active">Calculate</a></li>
-					<li><a href="#">Saved Entries</a></li>
-				</ul>
-			</div>
-            <div data-role="content">
-                <div data-role="fieldcontain">
-                    <fieldset data-role="controlgroup">
-                        <label  for="fob">
-                            Fuel on Board
-                        </label>
-                        <input  id="fob" placeholder="" value="" type="number" />
-                    </fieldset>
-                </div>
-                <div data-role="fieldcontain">
-                    <fieldset data-role="controlgroup">
-                        <label  for="target">
-                            Target
-                        </label>
-                        <input  id="target" placeholder="" value="" type="number" />
-                    </fieldset>
-                </div>
-				<div data-role="fieldcontain">
-                    <fieldset data-role="controlgroup">
-                        <label  for="fueluplift">
-                            Fuel Uplift
-                        </label>
-                        <input  id="fueluplift" placeholder="" value="" type="number" />
-                    </fieldset>
-                </div>
-                <div data-role="fieldcontain">
-                    <fieldset data-role="controlgroup">
-                        <label  for="density">
-                            Density
-                        </label>
-                        <input  id="density" placeholder="" value="" type="number" />
-                    </fieldset>
-                </div>
-                <input id='calculate' type="submit" data-icon="gear" data-iconpos="left" value="Calculate" />
-                <div data-role="fieldcontain">
-                    <fieldset data-role="controlgroup">
-                        <label  for="fuelactual">
-                            Fuel Actual
-                        </label>
-                        <input  id="fuelactual" readonly="readonly" placeholder="" value="" type="text" />
-                    </fieldset>
-                </div>
-                <div data-role="fieldcontain">
-                    <fieldset data-role="controlgroup">
-                        <label  for="discrepency">
-                            Discrepency
-                        </label>
-                        <input  id="discrepency" placeholder="" readonly="readonly" value="" type="text" />
-                    </fieldset>
-                </div>
-			<a id="save" href="#" data-role="button" data-icon="plus">Save</a>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+    </title>
+    <link rel="stylesheet" href="./lib/jquery.mobile-1.0.1.min.css" />
+    <link rel="stylesheet" href="./lib/jquery.mobile.simpledialog.min.css" />
+    <script src="./lib/jquery.min.js"></script>
+    <script src="./lib/jquery.mobile-1.0.1.min.js"></script>
+    <script src="./lib/jquery.mobile.simpledialog2.min.js"></script>
+  </head>
+  <body>
+    <div data-role="page" id="calc">
+      <div data-theme="a" data-role="header">
+        <h3>
+          Fuelr
+        </h3>
+      </div>
+      <div data-role="content">
+        <div data-role="fieldcontain">
+          <fieldset data-role="controlgroup">
+            <label  for="fob">
+              Fuel on Board
+            </label>
+            <input  id="fob" placeholder="" value="" type="number" />
+          </fieldset>
         </div>
-        <script>
-            //App custom javascript
-			$('#calculate').tap(function() {
-				console.log('caculated!');
-				
-				//Clear previous values
-				$('#fuelactual').val('');
-				$('#discrepency').val('');
-				
-				var fob = parseFloat($('#fob').val());
-				var target = parseFloat($('#target').val());
-				var fueluplift = parseFloat($('#fueluplift').val());
-				var density = parseFloat($('#density').val());
-				
-				var actualuplift = fueluplift * density;
-				var fuelactual = actualuplift + fob;
-				var discrepency = target - fuelactual;
-				
-				if (!isNaN(fuelactual) && !isNaN(discrepency)) {
-					$('#fuelactual').val(fuelactual);
-					$('#discrepency').val(discrepency);
-				}
-			});
-			
-			$(document).delegate('#save', 'click', function() {
-				  // NOTE: The selector can be whatever you like, so long as it is an HTML element.
-				  //       If you prefer, it can be a member of the current page, or an anonymous div
-				  //       like shown.
-				  $('<div>').simpledialog2({
-					mode: 'button',
-					headerText: 'Save Entry',
-					headerClose: true,
-					buttonPrompt: 'Enter a title for this calculation',
-					buttonInput: true,
-					buttons : {
-						'Save': {
-							click: function () { 
-								$('#buttonoutput').text('OK');
-							}
-						}
-					}
-				  })
-				})
-			
-        </script>
-    </body>
+        <div data-role="fieldcontain">
+          <fieldset data-role="controlgroup">
+            <label  for="target">
+              Target
+            </label>
+            <input  id="target" placeholder="" value="" type="number" />
+          </fieldset>
+        </div>
+        <div data-role="fieldcontain">
+          <fieldset data-role="controlgroup">
+            <label  for="fueluplift">
+              Fuel Uplift
+            </label>
+            <input  id="fueluplift" placeholder="" value="" type="number" />
+          </fieldset>
+        </div>
+        <div data-role="fieldcontain">
+          <fieldset data-role="controlgroup">
+            <label  for="density">
+              Density
+            </label>
+            <input  id="density" placeholder="" value="" type="number" />
+          </fieldset>
+        </div>
+        <input id='calculate' type="submit" data-icon="gear" data-iconpos="left" value="Calculate" />
+        <div data-role="fieldcontain">
+          <fieldset data-role="controlgroup">
+            <label  for="fuelactual">
+              Fuel Actual
+            </label>
+            <input  id="fuelactual" readonly="readonly" placeholder="" value="" type="text" />
+          </fieldset>
+        </div>
+        <div data-role="fieldcontain">
+          <fieldset data-role="controlgroup">
+            <label  for="discrepency">
+              Discrepency
+            </label>
+            <input  id="discrepency" placeholder="" readonly="readonly" value="" type="text" />
+          </fieldset>
+        </div>
+        <a id="save" href="#" data-role="button" data-icon="plus">Save</a>
+      </div>
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><a id="calculator" href="#calc" data-role="tab" data-icon="grid" class="ui-btn-active">Calculator</a></li>
+            <li><a id="saved" href="#savedentries" data-role="tab" data-icon="grid">Saved</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div data-role="page" id="savedentries">
+      <div data-theme="a" data-role="header">
+        <h3>
+          Fuelr
+        </h3>
+      </div>
+      <div data-role="content">
+        <ul id='entrylist' data-role="listview" data-divider-theme="b" data-inset="true">
+          <li data-role="list-divider" role="heading">
+          Saved Calculations
+          </li>
+        </ul>
+      </div>
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><a id="calculator" href="#calc" data-role="tab" data-icon="grid">Calculator</a></li>
+            <li><a id="saved" href="#savedentries" data-role="tab" data-icon="grid" class="ui-btn-active">Saved</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <div data-role="page" id="entry-detail">
+      <div data-theme="a" data-role="header">
+        <a id="btnBack" href="#" data-icon="back">Refresh</a>
+        <h3>
+          Fuelr
+        </h3>
+      </div>
+      <div data-role="content">
+        show content here
+      </div>
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><a id="calculator" href="#calc" data-role="tab" data-icon="grid">Calculator</a></li>
+            <li><a id="saved" href="#savedentries" data-role="tab" data-icon="grid" class="ui-btn-active">Saved</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $('a[data-role=tab]').each(function() {
+        var anchor = $(this);
+        anchor.bind("click", function () {
+          $.mobile.changePage(anchor.attr("href"), {
+            transition: "none",
+            changeHash: false
+          });
+          return false;
+        });
+      });
+
+      $('#savedentries').bind('pageshow', function() {
+        var data = localStorage.getItem('fuelr');
+
+        $('#entrylist').empty();
+
+        var dataObj = JSON.parse(data);
+
+        for(i in dataObj) {
+          var entry = dataObj[i];
+          $('#entrylist').append("<li class='listcell' data-theme='c'><a href='#' data-transition='slide'>" + entry.title + "</a></li>");
+        }
+
+        $('#entrylist').listview('refresh');
+
+        $('.listcell').live('click', function() {
+          $.mobile.changePage('#entry-detail');
+        });
+      });
+
+      $('#calculate').tap(function() {
+        console.log('caculated!');
+
+        //Clear previous values
+        $('#fuelactual').val('');
+        $('#discrepency').val('');
+
+        var fob = parseFloat($('#fob').val());
+        var target = parseFloat($('#target').val());
+        var fueluplift = parseFloat($('#fueluplift').val());
+        var density = parseFloat($('#density').val());
+        var actualuplift = fueluplift * density;
+        var fuelactual = actualuplift + fob;
+        var discrepency = target - fuelactual;
+
+        if (!isNaN(fuelactual) && !isNaN(discrepency)) {
+          $('#fuelactual').val(fuelactual);
+          $('#discrepency').val(discrepency);
+        }
+      });
+
+      $(document).delegate('#save', 'click', function() {
+        // NOTE: The selector can be whatever you like, so long as it is an HTML element.
+        //       If you prefer, it can be a member of the current page, or an anonymous div
+        //       like shown.
+        $("<div id='diag'>").simpledialog2({
+          mode: 'button',
+          headerText: 'Save Entry',
+          headerClose: true,
+          buttonPrompt: 'Enter a title for this calculation',
+          buttonInput: true,
+          buttons : {
+            'Save': {
+              click: function () { 
+                var entry = {};
+                entry.title = $.mobile.sdLastInput;
+                entry.fob = $('#fob').val();
+                entry.target = $('#target').val();
+                entry.fueluplift = $('#fueluplift').val();
+                entry.density = $('#density').val();
+                entry.fuelactual = $('#fuelactual').val();
+                entry.discrepency = $('#discrepency').val();
+
+                // Save the entry to local storage
+                var fuelrData = localStorage.getItem('fuelr');
+
+                if (fuelrData == null) {
+                  fuelrData = {};
+                }
+
+                var timestamp = (new Date()).toLocaleString();
+                fuelrData[timestamp] = entry;
+
+                localStorage.setItem('fuelr', JSON.stringify(fuelrData));
+              }
+            }
+          }
+        })
+      })
+
+    </script>
+  </body>
 </html>
