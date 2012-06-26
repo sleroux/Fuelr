@@ -1,0 +1,9 @@
+#calc label.ui-input-text {
+  vertical-align: middle;
+  text-align: right;
+  width: 30%;
+}
+
+#calc input.ui-input-text {
+  width: 50%;
+}
